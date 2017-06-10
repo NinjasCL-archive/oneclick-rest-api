@@ -1,0 +1,5 @@
+{
+    "require": {
+        "freshwork/transbank": "^0.1.8"
+    }
+}

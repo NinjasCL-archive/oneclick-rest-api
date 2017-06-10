@@ -1,0 +1,40 @@
+[
+    {
+        "name": "freshwork/transbank",
+        "version": "0.1.8",
+        "version_normalized": "0.1.8.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/freshworkstudio/transbank-web-services.git",
+            "reference": "5a2ae24eac65a695faf046c5eb73ffcc2895623d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/freshworkstudio/transbank-web-services/zipball/5a2ae24eac65a695faf046c5eb73ffcc2895623d",
+            "reference": "5a2ae24eac65a695faf046c5eb73ffcc2895623d",
+            "shasum": ""
+        },
+        "time": "2017-05-20T23:59:25+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Freshwork\\Transbank\\": "src/"
+            },
+            "classmap": [
+                "src/wss"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPLv3"
+        ],
+        "authors": [
+            {
+                "name": "Gonzalo De Spirito",
+                "email": "gonzalo@freshworkstudio.com"
+            }
+        ],
+        "description": "SDK para webservices de transbank (Webpay Plus, Webpay OneClick, Webpay PatPass)"
+    }
+]
