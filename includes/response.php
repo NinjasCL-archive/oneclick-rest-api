@@ -56,6 +56,8 @@ class NJSResponse
             {
                 exit($response->status);
             }
+
+            return;
         }
 
         throw new Exception('Response is not an Object or is not properly formatted.');
