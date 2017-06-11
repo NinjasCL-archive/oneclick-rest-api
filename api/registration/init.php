@@ -57,9 +57,10 @@ if(
     try
     {
         $result =  NJSOneClick::instance()->initInscription($user, $email, $url);
-        $response = NJSResponse::new();
+        $response = NJSResponse::new($params);
         $response->data->session = (string) $result->token;
         $response->data->url = (string) $result->urlWebpay;
+
         $response->status = NJSStatus::ok();
     } 
     catch (Exception $e)

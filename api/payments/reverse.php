@@ -49,7 +49,7 @@ if(NJSHelpers::stringIsValid($order))
     try
     {
         $result =  NJSOneClick::instance()->codeReverseOneClick($order);
-        $response = NJSResponse::new();
+        $response = NJSResponse::new($params);
 
         // TODO: standarize output
         $response->data->result = $result;

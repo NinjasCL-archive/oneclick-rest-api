@@ -29,7 +29,10 @@ class NJSStatus
 {
     public static function set($code = 200)
     {
-        http_response_code($code);
+        if(is_numeric($code))
+        {
+            http_response_code($code);
+        }
     }
     
     public static function ok()

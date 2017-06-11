@@ -77,8 +77,9 @@ describe('Unauthorized Calls', function()
           res.body.error.should.be.a('object')
           res.body.error.should.have.property('message')
           res.body.error.message.should.be.a('string')
-          res.body.error.should.have.property('_meta')
-          res.body.error._meta.should.be.a('object')
+          
+          res.body.should.have.property('_meta')
+          res.body._meta.should.be.a('object')
 
           res.body.should.have.property('status')
           res.body.status.should.be.a('number')
@@ -116,8 +117,9 @@ describe('Unauthorized Calls', function()
           res.body.error.should.be.a('object')
           res.body.error.should.have.property('message')
           res.body.error.message.should.be.a('string')
-          res.body.error.should.have.property('_meta')
-          res.body.error._meta.should.be.a('object')
+          
+          res.body.should.have.property('_meta')
+          res.body._meta.should.be.a('object')
 
           res.body.should.have.property('status')
           res.body.status.should.be.a('number')
@@ -155,8 +157,9 @@ describe('Unauthorized Calls', function()
           res.body.error.should.be.a('object')
           res.body.error.should.have.property('message')
           res.body.error.message.should.be.a('string')
-          res.body.error.should.have.property('_meta')
-          res.body.error._meta.should.be.a('object')
+          
+          res.body.should.have.property('_meta')
+          res.body._meta.should.be.a('object')
 
           res.body.should.have.property('status')
           res.body.status.should.be.a('number')
@@ -196,8 +199,9 @@ describe('Unauthorized Calls', function()
           res.body.error.should.be.a('object')
           res.body.error.should.have.property('message')
           res.body.error.message.should.be.a('string')
-          res.body.error.should.have.property('_meta')
-          res.body.error._meta.should.be.a('object')
+          
+          res.body.should.have.property('_meta')
+          res.body._meta.should.be.a('object')
 
           res.body.should.have.property('status')
           res.body.status.should.be.a('number')
@@ -235,8 +239,9 @@ describe('Unauthorized Calls', function()
           res.body.error.should.be.a('object')
           res.body.error.should.have.property('message')
           res.body.error.message.should.be.a('string')
-          res.body.error.should.have.property('_meta')
-          res.body.error._meta.should.be.a('object')
+          
+          res.body.should.have.property('_meta')
+          res.body._meta.should.be.a('object')
 
           res.body.should.have.property('status')
           res.body.status.should.be.a('number')
@@ -282,8 +287,9 @@ describe('Wrong Params Calls', function()
           res.body.error.should.be.a('object');
           res.body.error.should.have.property('message')
           res.body.error.message.should.be.a('string')
-          res.body.error.should.have.property('_meta')
-          res.body.error._meta.should.be.a('object')
+          
+          res.body.should.have.property('_meta')
+          res.body._meta.should.be.a('object')
 
           res.body.should.have.property('status')
           res.body.status.should.be.a('number')
@@ -323,8 +329,9 @@ describe('Wrong Params Calls', function()
           res.body.error.should.be.a('object');
           res.body.error.should.have.property('message')
           res.body.error.message.should.be.a('string')
-          res.body.error.should.have.property('_meta')
-          res.body.error._meta.should.be.a('object')
+          
+          res.body.should.have.property('_meta')
+          res.body._meta.should.be.a('object')
 
           res.body.should.have.property('status')
           res.body.status.should.be.a('number')
@@ -348,7 +355,7 @@ describe('Wrong Params Calls', function()
         .set('x-tbk-token', '')
         .query(
           {
-            user: '' // session is missing
+            user: '' // user is missing
           })
         .end(function(err, res)
         {
@@ -364,8 +371,9 @@ describe('Wrong Params Calls', function()
           res.body.error.should.be.a('object');
           res.body.error.should.have.property('message')
           res.body.error.message.should.be.a('string')
-          res.body.error.should.have.property('_meta')
-          res.body.error._meta.should.be.a('object')
+          
+          res.body.should.have.property('_meta')
+          res.body._meta.should.be.a('object')
 
           res.body.should.have.property('status')
           res.body.status.should.be.a('number')
@@ -407,8 +415,9 @@ describe('Wrong Params Calls', function()
           res.body.error.should.be.a('object');
           res.body.error.should.have.property('message')
           res.body.error.message.should.be.a('string')
-          res.body.error.should.have.property('_meta')
-          res.body.error._meta.should.be.a('object')
+          
+          res.body.should.have.property('_meta')
+          res.body._meta.should.be.a('object')
 
           res.body.should.have.property('status')
           res.body.status.should.be.a('number')
@@ -448,8 +457,9 @@ describe('Wrong Params Calls', function()
           res.body.error.should.be.a('object');
           res.body.error.should.have.property('message')
           res.body.error.message.should.be.a('string')
-          res.body.error.should.have.property('_meta')
-          res.body.error._meta.should.be.a('object')
+          
+          res.body.should.have.property('_meta')
+          res.body._meta.should.be.a('object')
 
           res.body.should.have.property('status')
           res.body.status.should.be.a('number')
@@ -460,4 +470,57 @@ describe('Wrong Params Calls', function()
     });
   });
 
+});
+
+describe('Transbank Calls', function()
+{
+  
+  describe('Request init.php', function()
+  {
+
+    it('Request to /registration/init.php should bring data GET', function(done)
+    {
+      
+      var user = fuser();
+
+      chai.request(server)
+        .get('/registration/init.php')
+        .set('x-auth-token', authToken)
+        .set('x-tbk-token', '')
+        .query(
+          {
+            user: user.name,
+            email: user.email,
+            url: finishUrl
+          })
+        .end(function(err, res)
+        {
+
+          error(err);
+          log(res);
+
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.be.a('object');
+          
+          res.body.should.have.property('data')
+          res.body.data.should.be.a('object')
+
+          res.body.data.should.have.property('session')
+          res.body.data.session.should.be.a('string')
+
+          res.body.data.should.have.property('url')
+          res.body.data.url.should.be.a('string')
+
+          res.body.should.have.property('_meta')
+          res.body._meta.should.be.a('object')
+
+          res.body.should.have.property('status')
+          res.body.status.should.be.a('number')
+          res.body.status.should.equal(200)
+
+          done();
+        });
+    });
+  });
 });

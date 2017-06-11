@@ -50,8 +50,8 @@ class NJSErrors
             'error' =>
                (object) [
                     'message' => 'Server Error',
-                    '_meta' => $meta
                 ],
+            '_meta' => $meta,
             'status' => NJSStatus::internalServerError()
         ];
     }

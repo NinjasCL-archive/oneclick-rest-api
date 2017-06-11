@@ -59,7 +59,7 @@ if(
     try
     {
         $result =  NJSOneClick::instance()->authorize($amount, $order, $username, $token);
-        $response = NJSResponse::new();
+        $response = NJSResponse::new($params);
 
         $response->data->operation = (object) [
             'code' => (string) $result->authorizationCode,

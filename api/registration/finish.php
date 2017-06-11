@@ -49,7 +49,7 @@ if(NJSHelpers::stringIsValid($session))
     try
     {
         $result =  NJSOneClick::instance()->finishInscription($session);
-        $response = NJSResponse::new();
+        $response = NJSResponse::new($params);
 
         $response->data->token =  (string) $result->tbkUser;
 
