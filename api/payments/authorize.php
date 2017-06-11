@@ -36,14 +36,25 @@ $amount = NJSRequest::input('amount');
 $token = NJSHeader::token();
 $auth = NJSHeader::auth();
 
-$response = NJSErrors::unauthorized();
+$params = [
+    'user' => $user,
+    'order' => $order,
+    'amount' => $amount
+];
+
+$response = NJSErrors::badRequest($params);
+
+if(!NJSHelpers::authIsValid($auth))
+{
+    $response = NJSErrors::unauthorized($params);
+    NJSResponse::render($response);
+}
 
 if( 
   NJSHelpers::stringIsValid($order) && 
   NJSHelpers::stringIsValid($user) && 
   NJSHelpers::stringIsValid($amount) &&
-  NJSHelpers::stringIsValid($token) && 
-  NJSHelpers::authIsValid($auth))
+  NJSHelpers::stringIsValid($token))
 {
     try
     {

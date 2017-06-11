@@ -34,12 +34,21 @@ $user = NJSRequest::input('user');
 $token = NJSHeader::token();
 $auth = NJSHeader::auth();
 
-$response = NJSErrors::unauthorized();
+$params = [
+    'user' => $user
+];
+
+$response = NJSErrors::badRequest($params);
+
+if(!NJSHelpers::authIsValid($auth))
+{
+    $response = NJSErrors::unauthorized($params);
+    NJSResponse::render($response);
+}
 
 if( 
   NJSHelpers::stringIsValid($user) && 
-  NJSHelpers::stringIsValid($token) && 
-  NJSHelpers::authIsValid($auth))
+  NJSHelpers::stringIsValid($token))
 {
     try
     {

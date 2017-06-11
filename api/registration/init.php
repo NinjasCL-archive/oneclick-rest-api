@@ -37,16 +37,22 @@ $auth = NJSHeader::auth();
 $params = [
     'user' => $user,
     'email' => $email,
-    'url' => $url,
-    'auth' => $auth
+    'url' => $url
 ];
 
-$response = NJSErrors::unauthorized($params);
+$response = NJSErrors::badRequest($params);
 
-if(NJSHelpers::stringIsValid($user) &&
+if(!NJSHelpers::authIsValid($auth))
+{
+    $response = NJSErrors::unauthorized($params);
+    NJSResponse::render($response);
+}
+
+
+if(
+   NJSHelpers::stringIsValid($user) &&
    NJSHelpers::stringIsValid($email) &&
-   NJSHelpers::stringIsValid($url) &&   
-   NJSHelpers::authIsValid($auth))
+   NJSHelpers::stringIsValid($url))
 {
     try
     {
@@ -63,3 +69,4 @@ if(NJSHelpers::stringIsValid($user) &&
 }
 
 NJSResponse::render($response);
+

@@ -56,7 +56,12 @@ class NJSHelpers
 
   public static function authIsValid($token)
   {
-    return strcmp($token, kNJSAuthToken);
+    if(self::stringIsValid($token))
+    {
+      return (strcmp($token, kNJSAuthToken) === 0);
+    }
+    
+    return false;
   }
 
   public static function stringIsValid($string)
@@ -66,6 +71,9 @@ class NJSHelpers
 
   public static function paramsAreValid($params)
   {
+    
+    $valid = false;
+
     foreach($params as $key => $param)
     {
       $valid = false;
@@ -78,6 +86,7 @@ class NJSHelpers
         break;
       }
     }
+    
     return $valid;
   }
 }

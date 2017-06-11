@@ -40,10 +40,24 @@ class NJSResponse
         ];
     }
 
-    public static function render($response)
+    public static function render($response, $exit = true)
     {
-        NJSHeader::setContentTypeJson();
-        NJSStatus::set($response->status);
-        echo json_encode($response);
+
+        if(is_object($response) && 
+          !empty($response) && 
+          isset($response->status))
+        {
+            NJSHeader::setContentTypeJson();
+            NJSStatus::set($response->status);
+            
+            echo json_encode($response);
+            
+            if($exit)
+            {
+                exit($response->status);
+            }
+        }
+
+        throw new Exception('Response is not an Object or is not properly formatted.');
     }
 }

@@ -31,6 +31,21 @@ class NJSErrors
 {
     public static function baseError($meta = [])
     {
+        if(is_null($meta))
+        {
+            $meta = [];
+        }
+
+        if(!is_array($meta))
+        {
+            $meta = [$meta];
+        }
+        
+        if(is_array($meta))
+        {
+            $meta = (object) $meta;
+        }
+
         return (object) [
             'error' =>
                (object) [
@@ -53,6 +68,15 @@ class NJSErrors
     public static function internal($meta = [])
     {
         $error = self::baseError($meta);
+        return $error;
+    }
+
+    public static function badRequest($meta = [])
+    {
+        $error = self::baseError($meta);
+        $error->status = NJSStatus::badRequest();
+        $error->error->messge = 'Params are wrong or inexistent.';
+
         return $error;
     }
 }

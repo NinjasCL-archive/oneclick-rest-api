@@ -28,13 +28,14 @@ defined('kNJSAccessEnabled') or exit;
 // Do not modify
 define('kNJSEnvDevelopment', 0);
 define('kNJSEnvProduction', 1);
-define('kNJSErrorReporting', E_ERROR);
+
 
 // Modify these values as needed
 define('kNJSCurrentEnv', kNJSEnvDevelopment);
+define('kNJSErrorReporting', 0); // E_ALL, E_ERROR, 0 (None)
 
 // You can obtain a GUID here https://guidgenerator.com/
-define('kNJSAuthToken', _CHANGE_ME_WITH_A_GUID_);
+define('kNJSAuthToken', '_CHANGE_ME_WITH_A_GUID_');
 
 define('kNJSKeyFilename', 'private');
 define('kNJSKeyExtension', 'key');

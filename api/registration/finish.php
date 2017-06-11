@@ -32,10 +32,19 @@ error_reporting(kNJSErrorReporting);
 $session = NJSRequest::input('session');
 $auth = NJSHeader::auth();
 
-$response = NJSErrors::unauthorized();
+$params = [
+    'session' => $session
+];
 
-if(NJSHelpers::stringIsValid($token) && 
-   NJSHelpers::authIsValid($auth))
+$response = NJSErrors::badRequest($params);
+
+if(!NJSHelpers::authIsValid($auth))
+{
+    $response = NJSErrors::unauthorized($params);
+    NJSResponse::render($response);
+}
+
+if(NJSHelpers::stringIsValid($session))
 {
     try
     {

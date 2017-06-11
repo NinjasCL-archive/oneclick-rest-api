@@ -30,14 +30,21 @@ require_once __DIR__ . '/../../includes/app.php';
 error_reporting(kNJSErrorReporting);
 
 $order = NJSRequest::input('order');
-
 $auth = NJSHeader::auth();
 
-$response = NJSErrors::unauthorized();
+$params = [
+    'order' => $order
+];
 
-if( 
-  NJSHelpers::stringIsValid($order) && 
-  NJSHelpers::authIsValid($auth))
+$response = NJSErrors::badRequest($params);
+
+if(!NJSHelpers::authIsValid($auth))
+{
+    $response = NJSErrors::unauthorized($params);
+    NJSResponse::render($response);
+}
+
+if(NJSHelpers::stringIsValid($order))
 {
     try
     {

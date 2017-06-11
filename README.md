@@ -189,6 +189,9 @@ All testing should be made in a public url that Transbank could access. You can 
 
 If you are using PHP is highly recommended using [https://github.com/guzzle/guzzle](https://github.com/guzzle/guzzle) for creating a client.
 
+Some tests were made using *mocha* and *chai* in nodejs.
+Execute them using *npm test* inside the test directory.
+
 ## Security
 Ensure that only the *api/* directory can be viewed in browsers.
 
