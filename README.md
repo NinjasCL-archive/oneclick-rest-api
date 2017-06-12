@@ -109,7 +109,7 @@ Removes the user authorization for using *oneclick*.
 |token| Token obtained in *finish.php* endpoint. Must be sent as header `x-auth-token`.
 
 #### example call
-*/api/registration/finish.php?user=test1*
+*/api/registration/remove.php?user=test1*
 
 **Header**
  
