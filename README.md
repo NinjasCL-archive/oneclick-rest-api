@@ -171,7 +171,7 @@ Undo a *oneclick* purchase.
 |order| Unique order number for the purchase identification.
 
 #### example call
-*/api/registration/authorize.php?order=20170609222047231*
+*/api/registration/reverse.php?order=20170609222047231*
 
 **Header**
  
