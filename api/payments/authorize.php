@@ -1,4 +1,5 @@
-<?php
+<?php 
+namespace NinjasCL;
 /*
  * Transbank One Click Api Rest.
  *
@@ -27,14 +28,13 @@ define('kNJSAccessEnabled', true);
 
 require_once __DIR__ . '/../../includes/app.php';
 
-error_reporting(kNJSErrorReporting);
 
-$order = NJSRequest::input('order');
-$user = NJSRequest::input('user');
-$amount = NJSRequest::input('amount');
+$order = Request::input('order');
+$user = Request::input('user');
+$amount = Request::input('amount');
 
-$token = NJSHeader::token();
-$auth = NJSHeader::auth();
+$token = Header::token();
+$auth = Header::auth();
 
 $params = [
     'user' => $user,
@@ -42,24 +42,25 @@ $params = [
     'amount' => $amount
 ];
 
-$response = NJSErrors::badRequest($params);
+$response = Errors::badRequest($params);
 
-if(!NJSHelpers::authIsValid($auth))
+if(!Helpers::authIsValid($auth))
 {
-    $response = NJSErrors::unauthorized($params);
-    NJSResponse::render($response);
+    $response = Errors::unauthorized($params);
+    Response::render($response);
 }
 
 if( 
-  NJSHelpers::stringIsValid($order) && 
-  NJSHelpers::stringIsValid($user) && 
-  NJSHelpers::stringIsValid($amount) &&
-  NJSHelpers::stringIsValid($token))
+  Helpers::stringIsValid($order) && 
+  Helpers::stringIsValid($user) && 
+  Helpers::stringIsValid($amount) &&
+  Helpers::stringIsValid($token)
+  )
 {
     try
     {
-        $result =  NJSOneClick::instance()->authorize($amount, $order, $username, $token);
-        $response = NJSResponse::new($params);
+        $result =  OneClick::instance()->authorize($amount, $order, $username, $token);
+        $response = Response::new($params);
 
         $response->data->operation = (object) [
             'code' => (string) $result->authorizationCode,
@@ -72,12 +73,12 @@ if(
             'digits' => (string) $result->last4CardDigits
         ];
 
-        $response->status = NJSStatus::ok();
+        $response->status = Status::ok();
     } 
     catch (Exception $e)
     {
-        $response = NJSErrors::internal($e);
+        $response = Errors::internal($e);
     }
 }
 
-NJSResponse::render($response);
+Response::render($response);

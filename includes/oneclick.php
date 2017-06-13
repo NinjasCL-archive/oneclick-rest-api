@@ -1,4 +1,5 @@
 <?php
+namespace NinjasCL;
 /*
  * Transbank One Click Api Rest.
  *
@@ -34,7 +35,9 @@ use Freshwork\Transbank\TransbankServiceFactory;
 use Freshwork\Transbank\Log\LoggerFactory;
 use Freshwork\Transbank\Log\TransbankCertificationLogger;
 
-class NJSOneClick 
+use NinjasCL\Helpers;
+
+class OneClick 
 {
   private static $oneclick;
 
@@ -44,7 +47,7 @@ class NJSOneClick
     {
        LoggerFactory::setLogger(
          new TransbankCertificationLogger(
-              NJSHelpers::logPath()
+              Helpers::logPath()
            )
        );
 
@@ -54,8 +57,8 @@ class NJSOneClick
         {
             $certificationBag = 
             CertificationBagFactory::production(
-                NJSHelpers::key(), 
-                NJSHelpers::crt()
+                Helpers::key(),
+                Helpers::crt()
             );
         }
 
@@ -63,10 +66,5 @@ class NJSOneClick
     }
 
     return self::$oneclick;
-  }
-
-  public static function initInscriptionParamsAreValid($params)
-  {
-    return (NJSHelpers::paramsAreValid($params) && count($params) >= 3);
   }
 }

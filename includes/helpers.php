@@ -1,4 +1,5 @@
 <?php
+namespace NinjasCL;
 /*
  * Transbank One Click Api Rest.
  *
@@ -27,7 +28,7 @@ defined('kNJSAccessEnabled') or exit;
 
 include_once __DIR__ . '/constants.php';
 
-class NJSHelpers
+class Helpers
 {
   public static function path()
   {

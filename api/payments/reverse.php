@@ -1,4 +1,5 @@
-<?php
+<?php 
+namespace NinjasCL;
 /*
  * Transbank One Click Api Rest.
  *
@@ -27,39 +28,37 @@ define('kNJSAccessEnabled', true);
 
 require_once __DIR__ . '/../../includes/app.php';
 
-error_reporting(kNJSErrorReporting);
-
-$order = NJSRequest::input('order');
-$auth = NJSHeader::auth();
+$order = Request::input('order');
+$auth = Header::auth();
 
 $params = [
     'order' => $order
 ];
 
-$response = NJSErrors::badRequest($params);
+$response = Errors::badRequest($params);
 
-if(!NJSHelpers::authIsValid($auth))
+if(!Helpers::authIsValid($auth))
 {
-    $response = NJSErrors::unauthorized($params);
-    NJSResponse::render($response);
+    $response = Errors::unauthorized($params);
+    Response::render($response);
 }
 
-if(NJSHelpers::stringIsValid($order))
+if(Helpers::stringIsValid($order))
 {
     try
     {
-        $result =  NJSOneClick::instance()->codeReverseOneClick($order);
-        $response = NJSResponse::new($params);
+        $result =  OneClick::instance()->codeReverseOneClick($order);
+        $response = Response::new($params);
 
         // TODO: standarize output
         $response->data->result = $result;
 
-        $response->status = NJSStatus::ok();
+        $response->status = Status::ok();
     } 
     catch (Exception $e)
     {
-        $response = NJSErrors::internal($e);
+        $response = Errors::internal($e);
     }
 }
 
-NJSResponse::render($response);
+Response::render($response);

@@ -1,4 +1,5 @@
 <?php
+namespace NinjasCL;
 /*
  * Transbank One Click Api Rest.
  *
@@ -25,7 +26,7 @@
  */
 defined('kNJSAccessEnabled') or exit;
 
-class NJSRequest
+class Request
 {
     public static function contentType() 
     {

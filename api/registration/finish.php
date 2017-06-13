@@ -1,4 +1,5 @@
 <?php
+namespace NinjasCL;
 /*
  * Transbank One Click Api Rest.
  *
@@ -27,29 +28,27 @@ define('kNJSAccessEnabled', true);
 
 require_once __DIR__ . '/../../includes/app.php';
 
-error_reporting(kNJSErrorReporting);
-
-$session = NJSRequest::input('session');
-$auth = NJSHeader::auth();
+$session = Request::input('session');
+$auth = Header::auth();
 
 $params = [
     'session' => $session
 ];
 
-$response = NJSErrors::badRequest($params);
+$response = Errors::badRequest($params);
 
-if(!NJSHelpers::authIsValid($auth))
+if(!Helpers::authIsValid($auth))
 {
-    $response = NJSErrors::unauthorized($params);
-    NJSResponse::render($response);
+    $response = Errors::unauthorized($params);
+    Response::render($response);
 }
 
-if(NJSHelpers::stringIsValid($session))
+if(Helpers::stringIsValid($session))
 {
     try
     {
-        $result =  NJSOneClick::instance()->finishInscription($session);
-        $response = NJSResponse::new($params);
+        $result =  OneClick::instance()->finishInscription($session);
+        $response = Response::new($params);
 
         $response->data->token =  (string) $result->tbkUser;
 
@@ -63,12 +62,12 @@ if(NJSHelpers::stringIsValid($session))
             'digits' => (string) $result->last4CardDigits
         ];
 
-        $response->status = NJSStatus::ok();
+        $response->status = Status::ok();
     } 
     catch (Exception $e)
     {
-        $response = NJSErrors::internal($e);
+        $response = Errors::internal($e);
     }
 }
 
-NJSResponse::render($response);
+Response::render($response);

@@ -1,4 +1,5 @@
 <?php
+namespace NinjasCL;
 /*
  * Transbank One Click Api Rest.
  *
@@ -28,7 +29,10 @@ defined('kNJSAccessEnabled') or exit;
 include_once __DIR__ . '/status.php';
 include_once __DIR__ . '/header.php';
 
-class NJSResponse
+use NinjasCL\Status;
+use NinjasCL\Header;
+
+class Response
 {
     public static function new($meta = [])
     {
@@ -36,7 +40,7 @@ class NJSResponse
             'data' => (object) [
             ],
             '_meta' => $meta,
-            'status' => NJSStatus::ok()
+            'status' => Status::ok()
         ];
     }
 
@@ -47,8 +51,8 @@ class NJSResponse
           !empty($response) && 
           isset($response->status))
         {
-            NJSHeader::setContentTypeJson();
-            NJSStatus::set($response->status);
+            Header::setContentTypeJson();
+            Status::set($response->status);
             
             echo json_encode($response);
             

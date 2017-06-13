@@ -1,4 +1,5 @@
 <?php
+namespace NinjasCL;
 /*
  * Transbank One Click Api Rest.
  *
@@ -27,7 +28,9 @@ defined('kNJSAccessEnabled') or exit;
 
 include_once __DIR__ . '/status.php';
 
-class NJSErrors
+use NinjasCL\Status;
+
+class Errors
 {
     public static function baseError($meta = [])
     {
@@ -52,14 +55,14 @@ class NJSErrors
                     'message' => 'Server Error',
                 ],
             '_meta' => $meta,
-            'status' => NJSStatus::internalServerError()
+            'status' => Status::internalServerError()
         ];
     }
 
     public static function unauthorized($meta = [])
     {
         $error = self::baseError($meta);
-        $error->status = NJSStatus::unauthorized();
+        $error->status = Status::unauthorized();
         $error->error->message = 'Credentials are Invalid.';
 
         return $error;
@@ -74,7 +77,7 @@ class NJSErrors
     public static function badRequest($meta = [])
     {
         $error = self::baseError($meta);
-        $error->status = NJSStatus::badRequest();
+        $error->status = Status::badRequest();
         $error->error->messge = 'Params are wrong or inexistent.';
 
         return $error;

@@ -1,4 +1,5 @@
 <?php
+namespace NinjasCL;
 /*
  * Transbank One Click Api Rest.
  *
@@ -27,43 +28,42 @@ define('kNJSAccessEnabled', true);
 
 require_once __DIR__ . '/../../includes/app.php';
 
-error_reporting(kNJSErrorReporting);
+$user = Request::input('user');
 
-$user = NJSRequest::input('user');
-
-$token = NJSHeader::token();
-$auth = NJSHeader::auth();
+$token = Header::token();
+$auth = Header::auth();
 
 $params = [
     'user' => $user
 ];
 
-$response = NJSErrors::badRequest($params);
+$response = Errors::badRequest($params);
 
-if(!NJSHelpers::authIsValid($auth))
+if(!Helpers::authIsValid($auth))
 {
-    $response = NJSErrors::unauthorized($params);
-    NJSResponse::render($response);
+    $response = Errors::unauthorized($params);
+    Response::render($response);
 }
 
 if( 
-  NJSHelpers::stringIsValid($user) && 
-  NJSHelpers::stringIsValid($token))
+  Helpers::stringIsValid($user) && 
+  Helpers::stringIsValid($token)
+  )
 {
     try
     {
-        $result =  NJSOneClick::instance()->removeUser($token, $user);
-        $response = NJSResponse::new($params);
+        $result =  OneClick::instance()->removeUser($token, $user);
+        $response = Response::new($params);
 
         // TODO: standarize output
         $response->data->result = $result;
 
-        $response->status = NJSStatus::ok();
+        $response->status = Status::ok();
     } 
     catch (Exception $e)
     {
-        $response = NJSErrors::internal($e);
+        $response = Errors::internal($e);
     }
 }
 
-NJSResponse::render($response);
+Response::render($response);

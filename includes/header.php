@@ -1,4 +1,5 @@
 <?php
+namespace NinjasCL;
 /*
  * Transbank One Click Api Rest.
  *
@@ -25,7 +26,7 @@
  */
 defined('kNJSAccessEnabled') or exit;
 
-class NJSHeader
+class Header
 {
     public static function get($key = '') 
     {

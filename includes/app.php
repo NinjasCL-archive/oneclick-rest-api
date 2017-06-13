@@ -1,4 +1,5 @@
 <?php
+namespace NinjasCL;
 /*
  * Transbank One Click Api Rest.
  *
@@ -26,6 +27,9 @@
 defined('kNJSAccessEnabled') or exit;
 
 require_once __DIR__ . '/constants.php';
+
+error_reporting(kNJSErrorReporting);
+
 require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/request.php';
 require_once __DIR__ . '/response.php';
@@ -33,3 +37,12 @@ require_once __DIR__ . '/header.php';
 require_once __DIR__ . '/status.php';
 require_once __DIR__ . '/errors.php';
 require_once __DIR__ . '/oneclick.php';
+
+use NinjasCL\Helpers;
+use NinjasCL\Request;
+use NinjasCL\Response;
+use NinjasCL\Header;
+use NinjasCL\Status;
+use NinjasCL\Errors;
+use NinjasCL\OneClick;
+

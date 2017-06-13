@@ -1,4 +1,5 @@
 <?php
+namespace NinjasCL;
 /*
  * Transbank One Click Api Rest.
  *
@@ -25,7 +26,7 @@
  */
 defined('kNJSAccessEnabled') or exit;
 
-class NJSStatus
+class Status
 {
     public static function set($code = 200)
     {

@@ -1,4 +1,5 @@
 <?php
+namespace NinjasCL;
 /*
  * Transbank One Click Api Rest.
  *
@@ -27,12 +28,10 @@ define('kNJSAccessEnabled', true);
 
 require_once __DIR__ . '/../../includes/app.php';
 
-error_reporting(kNJSErrorReporting);
-
-$user = NJSRequest::input('user');
-$email = NJSRequest::input('email');
-$url = NJSRequest::input('url');
-$auth = NJSHeader::auth();
+$user = Request::input('user');
+$email = Request::input('email');
+$url = Request::input('url');
+$auth = Header::auth();
 
 $params = [
     'user' => $user,
@@ -40,34 +39,35 @@ $params = [
     'url' => $url
 ];
 
-$response = NJSErrors::badRequest($params);
+$response = Errors::badRequest($params);
 
-if(!NJSHelpers::authIsValid($auth))
+if(!Helpers::authIsValid($auth))
 {
-    $response = NJSErrors::unauthorized($params);
-    NJSResponse::render($response);
+    $response = Errors::unauthorized($params);
+    Response::render($response);
 }
 
 
 if(
-   NJSHelpers::stringIsValid($user) &&
-   NJSHelpers::stringIsValid($email) &&
-   NJSHelpers::stringIsValid($url))
+   Helpers::stringIsValid($user) &&
+   Helpers::stringIsValid($email) &&
+   Helpers::stringIsValid($url)
+   )
 {
     try
     {
-        $result =  NJSOneClick::instance()->initInscription($user, $email, $url);
-        $response = NJSResponse::new($params);
+        $result =  OneClick::instance()->initInscription($user, $email, $url);
+        $response = Response::new($params);
         $response->data->session = (string) $result->token;
         $response->data->url = (string) $result->urlWebpay;
 
-        $response->status = NJSStatus::ok();
+        $response->status = Status::ok();
     } 
     catch (Exception $e)
     {
-        $response = NJSErrors::internal($e);
+        $response = Errors::internal($e);
     }
 }
 
-NJSResponse::render($response);
+Response::render($response);
 
