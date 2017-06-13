@@ -109,7 +109,7 @@ Removes the user authorization for using *oneclick*.
 |token| Token obtained in *finish.php* endpoint. Must be sent as header `x-auth-token`.
 
 #### example call
-*/api/registration/finish.php?user=test1*
+*/api/registration/remove.php?user=test1*
 
 **Header**
  
@@ -171,7 +171,7 @@ Undo a *oneclick* purchase.
 |order| Unique order number for the purchase identification.
 
 #### example call
-*/api/registration/authorize.php?order=20170609222047231*
+*/api/registration/reverse.php?order=20170609222047231*
 
 **Header**
  
